@@ -3,10 +3,11 @@ package com.tw.academy.basic.$6_primitive_obsession.practiceOne;
 public class DeliveryManager {
     String toAddress;
     String fromAddress;
+    Address address;
 
-    public DeliveryManager(String fromAddress, String toAddress) {
-        this.toAddress = toAddress;
-        this.fromAddress = fromAddress;
+    public DeliveryManager(Address from, Address to) {
+        this.toAddress = from.getAddress();
+        this.fromAddress = to.getAddress();
     }
 
     public DeliverCenter allocate(){
