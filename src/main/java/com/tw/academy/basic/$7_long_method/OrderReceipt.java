@@ -7,6 +7,7 @@ public class OrderReceipt {
     static final String TOTAL_AMOUNT = "Total Amount";
     static final String LINE_BREAKS = "\n";
     static final String INDENTATION = "\t";
+    static final double DISCOUNT = 0.1d;
 
     public OrderReceipt(Order order) {
         this.order = order;
@@ -36,7 +37,7 @@ public class OrderReceipt {
     private double calculateTotalSalesTax(Order order){
         double totalSalesTax=0d;
         for (LineItem lineItem : order.getLineItems()) {
-            totalSalesTax+=lineItem.getTotalAmount() * 0.1;
+            totalSalesTax+=lineItem.getTotalAmount() * DISCOUNT;
         }
         return totalSalesTax;
     }

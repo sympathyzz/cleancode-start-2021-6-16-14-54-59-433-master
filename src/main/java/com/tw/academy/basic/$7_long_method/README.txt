@@ -6,3 +6,4 @@
 6.o,output,totSalesTx,tot => naming   change to order,receipt,totalSalesTax,totalSales
 7.//todo: rename -- Tom ,// print headers ....=> todo and comment   remove
 8.printReceipt => long method   split printReceipt
+9.0.1 =>magic number  extract to DISCOUNT
