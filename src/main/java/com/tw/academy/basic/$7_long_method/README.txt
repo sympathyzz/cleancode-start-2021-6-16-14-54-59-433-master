@@ -5,3 +5,4 @@
 5.Total Amount,\n,\t =>magic number  extract to TOTAL_AMOUNT,LINE_BREAKS,INDENTATION
 6.o,output,totSalesTx,tot => naming   change to order,receipt,totalSalesTax,totalSales
 7.//todo: rename -- Tom ,// print headers ....=> todo and comment   remove
+8.printReceipt => long method   split printReceipt

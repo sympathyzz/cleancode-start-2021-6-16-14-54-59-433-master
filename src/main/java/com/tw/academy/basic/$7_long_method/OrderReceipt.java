@@ -17,29 +17,46 @@ public class OrderReceipt {
         receipt.append(HEADER);
         receipt.append(order.getCustomerName());
         receipt.append(order.getCustomerAddress());
-
-        double totalSalesTax = 0d;
-        double totalSales = 0d;
-        for (LineItem lineItem : order.getLineItems()) {
-            receipt.append(lineItem.getDescription());
-            receipt.append(INDENTATION);
-            receipt.append(lineItem.getPrice());
-            receipt.append(INDENTATION);
-            receipt.append(lineItem.getQuantity());
-            receipt.append(INDENTATION);
-            receipt.append(lineItem.getTotalAmount());
-            receipt.append(LINE_BREAKS);
-
-            double salesTax = lineItem.getTotalAmount() * .10;
-            totalSalesTax += salesTax;
-
-            totalSales += lineItem.getTotalAmount() + salesTax;
-        }
-
-        receipt.append(SALES).append(INDENTATION).append(totalSalesTax);
-
-        receipt.append(TOTAL_AMOUNT).append(INDENTATION).append(totalSales);
+        double totalSalesWithoutTax = calculateTotalSalesWithoutTax(order);
+        double totalSalesTax = calculateTotalSalesTax(order);
+        double totalSales=totalSalesWithoutTax+totalSalesTax;
+        StringBuilder salesContent = getSalesContent(order, totalSales, totalSalesTax);
+        receipt.append(salesContent);
         return receipt.toString();
+    }
+
+    private double calculateTotalSalesWithoutTax(Order order){
+        double totalSales=0d;
+        for (LineItem lineItem : order.getLineItems()) {
+            totalSales+=lineItem.getTotalAmount();
+        }
+        return totalSales;
+    }
+
+    private double calculateTotalSalesTax(Order order){
+        double totalSalesTax=0d;
+        for (LineItem lineItem : order.getLineItems()) {
+            totalSalesTax+=lineItem.getTotalAmount() * 0.1;
+        }
+        return totalSalesTax;
+    }
+
+    private StringBuilder getSalesContent(Order order,double totalSales,double totalSalesTax){
+        StringBuilder salesContent=new StringBuilder();
+        for (LineItem lineItem : order.getLineItems()) {
+            salesContent.append(lineItem.getDescription());
+            salesContent.append(INDENTATION);
+            salesContent.append(lineItem.getPrice());
+            salesContent.append(INDENTATION);
+            salesContent.append(lineItem.getQuantity());
+            salesContent.append(INDENTATION);
+            salesContent.append(lineItem.getTotalAmount());
+            salesContent.append(LINE_BREAKS);
+        }
+        salesContent.append(SALES).append(INDENTATION).append(totalSalesTax);
+
+        salesContent.append(TOTAL_AMOUNT).append(INDENTATION).append(totalSales);
+        return salesContent;
     }
 
 
